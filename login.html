@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل الدخول | Payda.ma</title>
+  <style>
+    body {
+      font-family: 'Tajawal', Arial, sans-serif;
+      background: linear-gradient(135deg, #eaffea 0%, #f8f9fa 100%);
+      color: #222;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .navbar {
+      width: 100%;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.7rem 2vw 0.7rem 2vw;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      min-height: 60px;
+    }
+    .navbar .logo {
+      font-weight: bold;
+      color: #28a745;
+      font-size: 1.35rem;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .navbar .logo-badge {
+      background: #28a745;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 0.95rem;
+      font-weight: bold;
+      width: 1.7em;
+      height: 1.7em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 0.2em;
+    }
+    .login-bg {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 80px;
+      padding-bottom: 40px;
+    }
+    .login-card {
+      background: #fff;
+      border-radius: 22px;
+      box-shadow: 0 8px 32px #28a74522, 0 1.5px 0 #f8f9fa inset;
+      padding: 2.7rem 2.2rem 2.2rem 2.2rem;
+      max-width: 410px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      border: 1.5px solid #e0e3eb;
+      animation: fadeInUp 0.7s cubic-bezier(.39,.575,.56,1.000);
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h2 {
+      color: #28a745;
+      margin-bottom: 1.5rem;
+      font-size: 1.6rem;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      margin-top: 0.5rem;
+    }
+    .input-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    input {
+      padding: 1rem 1.1rem;
+      border-radius: 13px;
+      border: 1.5px solid #e0e3eb;
+      font-size: 1.08rem;
+      font-family: inherit;
+      background: #f8f9fa;
+      outline: none;
+      transition: border 0.18s, background 0.18s;
+      box-shadow: 0 1px 4px #28a74511;
+    }
+    input:focus {
+      border: 1.5px solid #28a745;
+      background: #fff;
+    }
+    button[type="submit"] {
+      background: linear-gradient(90deg, #28a745 60%, #4ca75a 100%);
+      color: #fff;
+      border: none;
+      border-radius: 13px;
+      padding: 1rem 0;
+      font-size: 1.15rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.18s, box-shadow 0.18s;
+      margin-top: 0.5rem;
+      box-shadow: 0 2px 12px #28a74522;
+      letter-spacing: 0.5px;
+    }
+    button[type="submit"]:hover {
+      background: linear-gradient(90deg, #218838 60%, #28a745 100%);
+      box-shadow: 0 4px 18px #28a74544;
+    }
+    .signup-link {
+      margin-top: 1.5rem;
+      color: #555;
+      font-size: 1rem;
+    }
+    .signup-link a {
+      color: #28a745;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+    @media (max-width: 600px) {
+      .login-card {
+        padding: 1.2rem 0.3rem;
+        margin-top: 40px;
+      }
+      .login-bg {
+        padding-top: 30px;
+      }
+      h2 {
+        font-size: 1.15rem;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      Payda.ma <span class="logo-badge">P</span>
+    </div>
+  </nav>
+  <div class="login-bg">
+    <div class="login-card">
+      <h2>تسجيل الدخول</h2>
+      <form id="loginForm">
+        <div class="input-group">
+          <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+        </div>
+        <div class="input-group">
+          <input type="password" name="password" placeholder="كلمة المرور" required>
+        </div>
+        <button type="submit">دخول</button>
+        <div id="loginMsg" style="margin-top:1rem;font-size:1rem;"></div>
+      </form>
+      <div class="signup-link">
+        ليس لديك حساب؟ <a href="signup.html">إنشاء حساب تاجر</a>
+      </div>
+    </div>
+  </div>
+  <script>
+    // إرسال بيانات تسجيل الدخول إلى السيرفر
+    const loginForm = document.getElementById('loginForm');
+    loginForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(loginForm));
+      document.getElementById('loginMsg').textContent = 'جاري التحقق...';
+      document.getElementById('loginMsg').style.color = '#555';
+      try {
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: data.email,
+            password: data.password
+          })
+        });
+        const result = await res.json();
+        if (result.success) {
+          document.getElementById('loginMsg').textContent = 'تم تسجيل الدخول بنجاح!';
+          document.getElementById('loginMsg').style.color = '#28a745';
+          setTimeout(()=>window.location='index.html', 1200);
+        } else {
+          document.getElementById('loginMsg').textContent = result.message || 'بيانات الدخول غير صحيحة';
+          document.getElementById('loginMsg').style.color = '#c00';
+        }
+      } catch (err) {
+        document.getElementById('loginMsg').textContent = 'تعذر الاتصال بالسيرفر';
+        document.getElementById('loginMsg').style.color = '#c00';
+      }
+    };
+  </script>
+</body>
+</html>

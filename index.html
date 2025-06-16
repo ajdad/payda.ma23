@@ -1,56 +1,694 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payda.ma - Check before you buy</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payda.ma - تأكد قبل ما تشري</title>
+  <style>
+    body {
+      font-family: 'Tajawal', Arial, sans-serif;
+      background: #fff;
+      color: #222;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    /* Navbar */
+    .navbar {
+      width: 100%;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.7rem 2vw 0.7rem 2vw;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      min-height: 60px;
+    }
+    .navbar .logo {
+      font-weight: bold;
+      color: #28a745;
+      font-size: 1.35rem;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .navbar .logo-badge {
+      background: #28a745;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 0.95rem;
+      font-weight: bold;
+      width: 1.7em;
+      height: 1.7em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 0.2em;
+    }
+    .navbar .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .navbar .nav-links a {
+      color: #222;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.05rem;
+      transition: color 0.15s;
+    }
+    .navbar .nav-links a.active,
+    .navbar .nav-links a:hover {
+      color: #28a745;
+    }
+    .navbar .nav-btn {
+      background: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.4rem 1.2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+      margin-right: 0.7rem;
+    }
+    .navbar .nav-btn:hover {
+      background: #218838;
+    }
+    /* Hero Section */
+    .hero {
+      margin-top: 90px;
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .hero-title {
+      font-size: 2.3rem;
+      font-weight: bold;
+      margin-bottom: 0.7rem;
+      color: #222;
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 1.5rem;
+    }
+    /* تحسين محرك البحث ليطابق النموذج المرجعي بدقة */
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border-radius: 48px;
+      box-shadow: 0 6px 32px 0 #e0e3eb, 0 2px 0 #f8f9fa inset;
+      padding: 0.5rem 1rem 0.5rem 0.5rem;
+      max-width: 700px;
+      margin: 2.5rem auto 2.5rem auto;
+      border: 2px solid #e0e3eb;
+      position: relative;
+      gap: 0.7rem;
+    }
+    .search-bar input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 1.25rem;
+      color: #222;
+      padding: 1.25rem 0.7rem 1.25rem 0.7rem;
+      border-radius: 48px;
+      font-family: inherit;
+      box-shadow: none;
+    }
+    .search-bar input::placeholder {
+      color: #b0b8c1;
+      font-size: 1.13rem;
+      letter-spacing: 0.1px;
+      opacity: 1;
+    }
+    .search-bar button {
+      background: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 500;
+      box-shadow: 0 2px 12px #28a74533;
+      margin-left: 0.2rem;
+      transition: background 0.18s, box-shadow 0.18s, transform 0.1s;
+      cursor: pointer;
+      padding: 0;
+    }
+    .search-bar button:hover {
+      background: #218838;
+      box-shadow: 0 4px 18px #28a74544;
+      transform: scale(1.08);
+    }
+    .search-bar button svg {
+      display: block;
+      width: 26px;
+      height: 26px;
+      stroke: #fff;
+    }
+    /* إزالة العدسة الافتراضية */
+    .search-bar button::before { display: none; }
+    .hero-info {
+      background: #eaffea;
+      color: #222;
+      border-radius: 12px;
+      max-width: 600px;
+      margin: 1.5rem auto 0 auto;
+      padding: 1.1rem 1.5rem 1.3rem 1.5rem;
+      font-size: 1.08rem;
+      box-shadow: 0 1px 8px #28a74511;
+      text-align: center;
+    }
+    .hero-cta {
+      margin-top: 1.2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .hero-cta .cta {
+      background: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1.7rem;
+      font-size: 1.08rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+      box-shadow: 0 1px 8px #28a74522;
+    }
+    .hero-cta .cta.secondary {
+      background: #fff;
+      color: #28a745;
+      border: 1.5px solid #28a745;
+    }
+    .hero-cta .cta:hover {
+      background: #218838;
+      color: #fff;
+    }
+    .hero-cta .cta.secondary:hover {
+      background: #eaffea;
+      color: #218838;
+    }
+    .cta-links {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .cta {
+      background: #fff;
+      color: #28a745;
+      border: 2px solid #fff;
+      border-radius: 25px;
+      padding: 0.5rem 1.5rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s, border 0.2s;
+      font-size: 1rem;
+    }
+    .cta.secondary {
+      background: transparent;
+      color: #fff;
+      border: 2px solid #fff;
+    }
+    .cta:hover {
+      background: #eaffea;
+      color: #218838;
+      border: 2px solid #28a745;
+    }
+    .section {
+      max-width: 900px;
+      margin: 2.5rem auto 0 auto;
+      padding: 0 1rem;
+    }
+    .section h3 {
+      color: #28a745;
+      margin-bottom: 1.2rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    .stores-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      justify-content: center;
+    }
+    .store-card {
+      background: #f8f9fa;
+      border-radius: 10px;
+      box-shadow: 0 1px 4px rgba(40,167,69,0.07);
+      padding: 1.2rem 1.5rem;
+      min-width: 220px;
+      max-width: 270px;
+      flex: 1 1 220px;
+      border-right: 4px solid #28a745;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .store-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.2rem;
+    }
+    .store-name {
+      font-weight: bold;
+      color: #28a745;
+      font-size: 1.1rem;
+    }
+    .badge {
+      background: #28a745;
+      color: #fff;
+      border-radius: 12px;
+      padding: 0.1rem 0.7rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-right: 0.3rem;
+    }
+    .store-desc {
+      color: #555;
+      font-size: 1rem;
+    }
+    .store-meta {
+      color: #888;
+      font-size: 0.95rem;
+    }
+    .store-rating {
+      color: #ffc107;
+      font-size: 1.1rem;
+      margin-top: 0.2rem;
+    }
+    .more-link {
+      text-align: left;
+      margin-top: 0.7rem;
+    }
+    .more-link a {
+      color: #28a745;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+    .reviews-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      justify-content: center;
+    }
+    .review-card {
+      background: #f8f9fa;
+      border-radius: 10px;
+      box-shadow: 0 1px 4px rgba(40,167,69,0.07);
+      padding: 1.2rem 1.5rem;
+      min-width: 220px;
+      max-width: 270px;
+      flex: 1 1 220px;
+      border-right: 4px solid #28a745;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .review-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.2rem;
+    }
+    .review-card .store {
+      font-weight: bold;
+      color: #28a745;
+      font-size: 1.1rem;
+    }
+    .badge.confirmed {
+      background: #218838;
+      color: #fff;
+    }
+    .stars {
+      color: #ffc107;
+      font-size: 1.1rem;
+      margin-right: 0.3rem;
+    }
+    .review-text {
+      color: #444;
+      font-size: 1rem;
+    }
+    .review-meta {
+      color: #888;
+      font-size: 0.95rem;
+    }
+    .stats {
+      text-align: center;
+      margin: 1.2rem 0 0.5rem 0;
+      color: #28a745;
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    .why-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      justify-content: center;
+    }
+    .why-item {
+      background: #eaffea;
+      border-radius: 10px;
+      padding: 1.2rem 1.5rem;
+      min-width: 180px;
+      max-width: 250px;
+      flex: 1 1 180px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      align-items: center;
+    }
+    .why-title {
+      color: #28a745;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+    .why-desc {
+      color: #555;
+      font-size: 1rem;
+      text-align: center;
+    }
+    .faq-list {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+    .faq-item {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 1.2rem 1.5rem;
+      border-right: 4px solid #28a745;
+    }
+    .faq-q {
+      color: #28a745;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .faq-a {
+      color: #444;
+      font-size: 1rem;
+    }
+    .join-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      justify-content: center;
+    }
+    .join-item {
+      background: #eaffea;
+      border-radius: 10px;
+      padding: 1.2rem 1.5rem;
+      min-width: 180px;
+      max-width: 250px;
+      flex: 1 1 180px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      align-items: center;
+    }
+    .join-title {
+      color: #28a745;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+    .join-desc {
+      color: #555;
+      font-size: 1rem;
+      text-align: center;
+    }
+    footer {
+      background: #222;
+      color: #fff;
+      padding: 2.5rem 0 1rem 0;
+      margin-top: 2.5rem;
+      font-size: 1rem;
+    }
+    .footer-main {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.5rem;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .footer-section h4 {
+      color: #28a745;
+      margin-bottom: 0.7rem;
+      font-size: 1.1rem;
+    }
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .footer-section ul li {
+      margin-bottom: 0.5rem;
+    }
+    .footer-section ul li a {
+      color: #fff;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+    .footer-copy {
+      text-align: center;
+      color: #aaa;
+      font-size: 0.95rem;
+    }
+    @media (max-width: 900px) {
+      .stores-list, .reviews-list, .why-list, .join-list, .footer-main {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .store-card, .review-card, .why-item, .join-item {
+        max-width: 100%;
+        min-width: 0;
+      }
+    }
+    @media (max-width: 600px) {
+      .container, .section {
+        padding: 0 0.2rem;
+      }
+      .hero-title {
+        font-size: 1.3rem;
+      }
+      .search-bar input {
+        max-width: 140px;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>Payda.ma</h1>
-        <p>تأكد قبل ما تشري — آراء حقيقية من المشترين المغاربة</p>
-    </header>
-
+    <nav class="navbar">
+      <div class="logo">
+        Payda.ma <span class="logo-badge">P</span>
+      </div>
+      <div class="nav-links">
+        <a href="#" class="active">الرئيسية</a>
+        <a href="#">للتجار</a>
+        <a href="#">من نحن</a>
+        <button class="nav-btn">لوحة التحكم</button>
+      </div>
+    </nav>
     <main>
-        <div class="search-bar">
-            <input type="text" placeholder="Search for a store">
-            <button>Search</button>
+      <section class="hero">
+        <h2 class="hero-title">تأكد قبل ما تشري</h2>
+        <div class="hero-sub">آراء حقيقية من المشترين المغاربة - اكتشف أفضل المتاجر الموثوقة</div>
+        <form class="search-bar" autocomplete="off">
+          <input type="text" placeholder="ابحث عن متجر أو منتج... (مثال: متجر الأناقة المغربية)" aria-label="بحث عن متجر">
+          <button type="submit" aria-label="بحث">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="11" cy="11" r="7" stroke="white" stroke-width="2"/>
+              <line x1="16.2" y1="16.2" x2="21" y2="21" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </form>
+        <div class="hero-info">
+          <b>Payda.ma</b> هي منصة كتمكنك تعرف سمعة التاجر قبل الشراء منه لحمايتك ومعرفة واش التاجر موثوق. نجمع آراء حقيقية من المشترين المغاربة لمساعدتك في اتخاذ القرار الصحيح.
         </div>
+        <div class="hero-cta">
+          <a href="signup.html" class="cta">إنشاء حساب تاجر</a>
+          <a href="#" class="cta secondary">دخول لوحة التحكم</a>
+        </div>
+      </section>
 
-        <section class="explanation">
-            <p>Payda.ma هي منصة كتمكنك تعرف سمعة التاجر قبل ما تشري منو، باش تحمي راسك وتعرف واش التاجر موثوق.</p>
-        </section>
+      <section class="section featured-stores">
+        <h3>المتاجر المميزة</h3>
+        <div class="stores-list">
+          <div class="store-card">
+            <div class="store-header">
+              <span class="store-name">متجر الأناقة المغربية</span>
+              <span class="badge">موثق</span>
+            </div>
+            <div class="store-desc">متجر متخصص في الملابس التقليدية المغربية</div>
+            <div class="store-meta">ملابس وأزياء · الدار البيضاء</div>
+            <div class="store-rating">★★★★★ <span>(156 تقييم)</span></div>
+          </div>
+          <div class="store-card">
+            <div class="store-header">
+              <span class="store-name">Tech Store Casablanca</span>
+              <span class="badge">موثق</span>
+            </div>
+            <div class="store-desc">متجر الإلكترونيات والأجهزة الذكية</div>
+            <div class="store-meta">إلكترونيات · الدار البيضاء</div>
+            <div class="store-rating">★★★★★ <span>(89 تقييم)</span></div>
+          </div>
+          <div class="store-card">
+            <div class="store-header">
+              <span class="store-name">Boutique Marrakech</span>
+              <span class="badge">موثق</span>
+            </div>
+            <div class="store-desc">بوتيك للملابس العصرية والإكسسوارات</div>
+            <div class="store-meta">ملابس وإكسسوارات · مراكش</div>
+            <div class="store-rating">★★★★★ <span>(67 تقييم)</span></div>
+          </div>
+        </div>
+        <div class="more-link"><a href="#">عرض جميع المتاجر</a></div>
+      </section>
 
-        <section class="recent-reviews">
-            <h2>Recent Reviews</h2>
-            <div class="review">
-                <h3>Store Name</h3>
-                <div class="rating">
-                    <span>★★★★★</span>
-                </div>
-                <p>This is a sample review from a verified customer. It provides details about their experience with the store.</p>
-                <p class="reviewer">- Customer Name</p>
+      <section class="section latest-reviews">
+        <h3>آخر التقييمات المؤكدة</h3>
+        <div class="reviews-list">
+          <div class="review-card">
+            <div class="review-header">
+              <span class="store">متجر الأناقة المغربية</span>
+              <span class="badge confirmed">مؤكد</span>
+              <span class="stars">★★★★★</span>
             </div>
-            <div class="review">
-                <h3>Another Store</h3>
-                <div class="rating">
-                    <span>★★★★☆</span>
-                </div>
-                <p>Another sample review with a slightly different rating and feedback.</p>
-                <p class="reviewer">- Anonymous</p>
+            <div class="review-text">خدمة ممتازة والتوصيل كان سريع. المنتج جودة عالية كما هو موضح في الصور.</div>
+            <div class="review-meta">أحمد م. · منذ يومين</div>
+          </div>
+          <div class="review-card">
+            <div class="review-header">
+              <span class="store">Tech Store Casablanca</span>
+              <span class="badge confirmed">مؤكد</span>
+              <span class="stars">★★★★☆</span>
             </div>
-        </section>
+            <div class="review-text">المنتج وصل في الوقت المحدد، جودة جيدة لكن التغليف كان يحتاج تحسين.</div>
+            <div class="review-meta">فاطمة ك. · منذ 3 أيام</div>
+          </div>
+          <div class="review-card">
+            <div class="review-header">
+              <span class="store">Boutique Marrakech</span>
+              <span class="badge confirmed">مؤكد</span>
+              <span class="stars">★★☆☆☆</span>
+            </div>
+            <div class="review-text">للأسف المنتج لم يكن كما هو موضح في الصور، والتاجر لم يرد على رسائلي.</div>
+            <div class="review-meta">يوسف ب. · منذ أسبوع</div>
+          </div>
+        </div>
+        <div class="stats">
+          <span>1,250+ متجر موثق</span> · <span>15,000+ تقييم مؤكد</span> · <span>98% رضا العملاء</span> · <span>24/7 دعم فني</span>
+        </div>
+        <div class="more-link"><a href="#">عرض المزيد من التقييمات</a></div>
+      </section>
+
+      <section class="section why-payda">
+        <h3>لماذا تختار Payda.ma؟</h3>
+        <div class="why-list">
+          <div class="why-item">
+            <div class="why-title">تقييمات مؤكدة</div>
+            <div class="why-desc">كل التقييمات مؤكدة من مشترين حقيقيين عبر أرقام الطلبات</div>
+          </div>
+          <div class="why-item">
+            <div class="why-title">أمان وثقة</div>
+            <div class="why-desc">منصة آمنة ومحمية لحماية بياناتك الشخصية</div>
+          </div>
+          <div class="why-item">
+            <div class="why-title">مجتمع مغربي</div>
+            <div class="why-desc">منصة مخصصة للمشترين والتجار المغاربة</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section faq">
+        <h3>الأسئلة الشائعة</h3>
+        <div class="faq-list">
+          <div class="faq-item">
+            <div class="faq-q">كيف يمكنني التأكد من صحة التقييمات؟</div>
+            <div class="faq-a">جميع التقييمات على منصتنا مؤكدة من خلال أرقام الطلبات الفعلية. نتحقق من كل تقييم قبل نشره لضمان المصداقية.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">هل الخدمة مجانية للمشترين؟</div>
+            <div class="faq-a">نعم، الخدمة مجانية تماماً للمشترين. يمكنك البحث وقراءة التقييمات دون أي رسوم.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">كيف يمكن للتجار الانضمام للمنصة؟</div>
+            <div class="faq-a">يمكن للتجار التسجيل مجاناً والحصول على صفحة متجر مخصصة لعرض منتجاتهم وجمع التقييمات.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section join-sellers">
+        <h3>انضم إلى شبكة التجار المعتمدين</h3>
+        <div class="join-list">
+          <div class="join-item">
+            <div class="join-title">إدارة سهلة</div>
+            <div class="join-desc">لوحة تحكم بسيطة لإدارة متجرك ومنتجاتك</div>
+          </div>
+          <div class="join-item">
+            <div class="join-title">ظهور في البحث</div>
+            <div class="join-desc">منتجاتك ستظهر في محرك البحث الداخلي</div>
+          </div>
+          <div class="join-item">
+            <div class="join-title">إحصائيات مفصلة</div>
+            <div class="join-desc">تتبع مبيعاتك وأداء منتجاتك</div>
+          </div>
+        </div>
+        <div class="cta-links">
+          <a href="#" class="cta">ابدأ البيع الآن</a>
+          <a href="#" class="cta secondary">دخول لوحة التحكم</a>
+        </div>
+      </section>
+
+      <footer>
+        <div class="footer-main">
+          <div class="footer-section">
+            <h4>روابط مهمة</h4>
+            <ul>
+              <li><a href="#">من نحن</a></li>
+              <li><a href="#">كيف نعمل</a></li>
+              <li><a href="#">للتجار</a></li>
+              <li><a href="#">المساعدة</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>قانوني</h4>
+            <ul>
+              <li><a href="#">شروط الاستخدام</a></li>
+              <li><a href="#">سياسة الخصوصية</a></li>
+              <li><a href="#">سياسة التقييمات</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>تواصل معنا</h4>
+            <ul>
+              <li>contact@payda.ma</li>
+              <li>+212 6XX XXX XXX</li>
+              <li>الدار البيضاء، المغرب</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-copy">© 2025 Payda.ma. جميع الحقوق محفوظة.</div>
+      </footer>
     </main>
-
-    <footer>
-        <nav>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-            <a href="#">Terms</a>
-            <a href="#">Privacy</a>
-        </nav>
-    </footer>
-    <script src="script.js"></script>
-</body>
+  </body>
 </html>
