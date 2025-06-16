@@ -1,1 +1,1 @@
-// You can add JavaScript functionality here
+// This file is intentionally left blank.

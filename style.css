@@ -1,74 +1,91 @@
 body {
-    font-family: sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa; /* Soft gray */
-    color: #343a40;
+    background-color: #f4f4f4;
 }
 
 header {
-    background-color: #fff;
+    background-color: #007bff;
+    color: white;
     padding: 20px;
     text-align: center;
-    border-bottom: 1px solid #dee2e6;
 }
 
-header h1 {
-    color: #28a745; /* Green */
-}
-
-main {
-    padding: 20px;
+h1 {
+    margin: 0;
 }
 
 .search-bar {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+    margin: 20px auto;
+    text-align: center;
 }
 
-.search-bar input {
+input[type="text"] {
     padding: 10px;
     width: 300px;
-    border: 1px solid #ced4da;
+    border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-.search-bar button {
-    padding: 10px 20px;
+button {
+    padding: 10px 15px;
     background-color: #28a745;
-    color: #fff;
+    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
+button:hover {
+    background-color: #218838;
+}
+
 .explanation {
-    text-align: center;
-    margin-bottom: 30px;
+    margin: 20px;
+    padding: 15px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .recent-reviews {
-    margin-top: 20px;
+    margin: 20px;
 }
 
 .review {
-    background-color: #fff;
+    background-color: white;
+    margin-bottom: 15px;
     padding: 15px;
     border-radius: 5px;
-    margin-bottom: 10px;
-    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.rating span {
+    color: gold;
+}
+
+.reviewer {
+    font-style: italic;
+    color: #555;
 }
 
 footer {
-    background-color: #fff;
-    padding: 20px;
+    background-color: #333;
+    color: white;
     text-align: center;
-    border-top: 1px solid #dee2e6;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
 }
 
-footer a {
+footer nav a {
+    color: white;
     margin: 0 10px;
-    color: #28a745;
     text-decoration: none;
+}
+
+footer nav a:hover {
+    text-decoration: underline;
 }
